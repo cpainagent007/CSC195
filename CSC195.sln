@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserDataTypes", "UserDataTy
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NumberGuessingGame", "NumberGuessingGame\NumberGuessingGame.vcxproj", "{56806BA2-DD84-46CD-9D6D-543521209A64}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Containers", "Containers\Containers.vcxproj", "{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{56806BA2-DD84-46CD-9D6D-543521209A64}.Release|x64.Build.0 = Release|x64
 		{56806BA2-DD84-46CD-9D6D-543521209A64}.Release|x86.ActiveCfg = Release|Win32
 		{56806BA2-DD84-46CD-9D6D-543521209A64}.Release|x86.Build.0 = Release|Win32
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Debug|x64.ActiveCfg = Debug|x64
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Debug|x64.Build.0 = Debug|x64
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Debug|x86.ActiveCfg = Debug|Win32
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Debug|x86.Build.0 = Debug|Win32
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Release|x64.ActiveCfg = Release|x64
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Release|x64.Build.0 = Release|x64
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Release|x86.ActiveCfg = Release|Win32
+		{FB079C63-EDFC-4C80-9EC5-78A7C7BA1F96}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
