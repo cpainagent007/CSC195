@@ -19,6 +19,23 @@ void func3() {
 	//func3();
 }
 
+void setValue(int v) {
+	v = 5;
+}
+
+
+//* after is used for declaration, * before is used for dereferencing/value stored at that address
+
+void setValue2(int* v) {
+	*v = 5;
+}
+
+void swap(int* a, int* b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
 class Animal {
 public:
 	Animal(string name) {
@@ -34,6 +51,8 @@ private:
 };
 
 int main() {
+	string breakLine = "----------";
+
 	int i = 5;
 	float f = 4.5f;
 
@@ -57,6 +76,10 @@ int main() {
 		delete pointer;
 	}
 
+	//----------
+	cout << breakLine << endl;
+	//----------
+
 	Animal* dog = new Animal("Dog");
 
 	//Print name of dog instance
@@ -78,6 +101,10 @@ int main() {
 		cout << "Dog is deleted" << endl;
 	}
 
+	//----------
+	cout << breakLine << endl;
+	//----------
+
 	//Creating an integer pointer on the heap with the size of int * 1000
 	int* block = (int*) malloc(sizeof(int) * 1000);
 	block[0] = 3;
@@ -90,4 +117,55 @@ int main() {
 
 	//Free up space
 	free(--block);
+
+	int v1 = 10;
+	int v2 = 20;
+
+	//----------
+	cout << breakLine << endl;
+	//----------
+
+	//Creating a pointer going to nothing
+	int* p = nullptr;
+	cout << p << endl;
+
+	//Pointer now points to v1
+	p = &v1;
+	cout << p << endl;
+
+	//Print out the point to v1 without using a pointer with &
+	cout << &v1 << endl;
+
+	//Setting the value of v1 indirectly through the pointer using *
+	*p = 5;
+	cout << *p << endl;
+
+	//Setting the pointer to a different variable
+	p = &v2;
+	*p = 10;
+	cout << *p << endl;
+
+	//----------
+	cout << breakLine << endl;
+	//----------
+
+	//Creates a temporary variable in the stack, doesn't actually change the value of v2
+	setValue(v2);
+	cout << *p << endl;
+	cout << v2 << endl;
+
+	//Sets the value of v2 to 5 through the address, so it stays in the heap
+	setValue2(p);
+	cout << *p << endl;
+	cout << v2 << endl;
+
+	//----------
+	cout << breakLine << endl;
+	//----------
+
+	v1 = 20;
+	cout << v1 << " " << v2 << endl;
+	swap(&v1, &v2);
+	cout << v1 << " " << v2 << endl;
+	cout << *p << endl;
 }
