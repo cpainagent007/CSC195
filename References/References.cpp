@@ -68,4 +68,9 @@ int main()
 	cout << "i1: " << i1 << " i2: " << i2 << endl;
 	swap(i1, i2);
 	cout << "i1: " << i1 << " i2: " << i2 << endl;
+
+	p1 = &i1;
+	for (int i = 0; i < 1000; i++) {
+		cout << *p1++ << endl;
+	}
 }

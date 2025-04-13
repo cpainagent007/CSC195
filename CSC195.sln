@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pointers", "Pointers\Pointe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "References", "References\References.vcxproj", "{30E6C17A-5228-40D4-B4A6-25D1744A6CCC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryReview", "MemoryReview\MemoryReview.vcxproj", "{C2A3AB81-7716-4880-85E7-83DE64AE4543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{30E6C17A-5228-40D4-B4A6-25D1744A6CCC}.Release|x64.Build.0 = Release|x64
 		{30E6C17A-5228-40D4-B4A6-25D1744A6CCC}.Release|x86.ActiveCfg = Release|Win32
 		{30E6C17A-5228-40D4-B4A6-25D1744A6CCC}.Release|x86.Build.0 = Release|Win32
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Debug|x64.ActiveCfg = Debug|x64
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Debug|x64.Build.0 = Debug|x64
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Debug|x86.Build.0 = Debug|Win32
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Release|x64.ActiveCfg = Release|x64
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Release|x64.Build.0 = Release|x64
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Release|x86.ActiveCfg = Release|Win32
+		{C2A3AB81-7716-4880-85E7-83DE64AE4543}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
