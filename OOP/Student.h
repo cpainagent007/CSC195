@@ -24,6 +24,13 @@ public:
 	void setGPA(float gpa) {
 		m_gpa = gpa;
 	}
+	//Overriding the getType method from the parent class, also ensures you are specifically overriding an existing method (recommended)
+	Type getType() override{
+		return STUDENT;
+	}
+	void work() override{
+		cout << "Student Working" << endl;
+	}
 
 private:
 	float m_gpa = 0.0f;

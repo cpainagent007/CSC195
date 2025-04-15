@@ -42,6 +42,35 @@ public:
 		cout << "Destructor called" << endl;
 	}
 
+	//Enumeration (can also explicitly assign values to the enumerators)
+	enum Type {
+		STUDENT,
+		WORKER,
+		TEACHER
+	};
+	//Using class keyword to define a nested enumeration
+	//Colon with datatype indicates the underlying type of the enum
+	enum class Type2 : int{
+		STUDENT,
+		WORKER,
+		TEACHER
+	};
+	//Enum values specified by the class keyword
+	Type type = STUDENT;
+	Type type2 = Type::STUDENT;
+	//Casting enum class to int (C method)
+	int type3 = (int)Type::STUDENT;
+	//Casting enum class to int (C++ method)
+	int type4 = static_cast<int>(Type::STUDENT);
+
+	//Virtual keyword and no body (pure virtual) means the child classes must implement it and the method in Human.h is abstract
+	virtual Type getType() = 0;
+
+	//Virtual keyword but contains body means the child classes can override it, but default is used if not specifically overridden
+	virtual void work() {
+		cout << "Human Working" << endl;
+	}
+
 	static int getCount() {
 		return m_count;
 	}

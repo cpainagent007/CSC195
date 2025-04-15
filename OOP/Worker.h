@@ -21,6 +21,9 @@ public:
 	void setSalary(float salary) {
 		m_salary = salary;
 	}
+	Type getType() override{
+		return WORKER;
+	}
 
 private:
 	float m_salary = 0.0f;
