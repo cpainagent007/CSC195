@@ -1,6 +1,6 @@
 
-#include "Human.h"
 #pragma once
+#include "Human.h"
 #include <iostream>
 
 using namespace std;

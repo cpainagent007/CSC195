@@ -12,20 +12,6 @@ using namespace std;
 
 class Human {
 public:
-	/*
-	//Constructor with parameters
-	Human(string name, unsigned short age) {
-		m_name = name;
-		m_age = age;
-		cout << "Constructor with parameters called" << endl;
-	}
-	//Constructor using this pointer to specify the object being constructed, not the parameter
-	Human(string name, unsigned short age) {
-		this->m_name = name;
-		this->m_age = age;
-		cout << "Constructor using this pointer called" << endl;
-	}
-	*/
 	//Default constructor
 	Human() {
 		cout << "Default constructor called" << endl;
@@ -61,6 +47,7 @@ public:
 	//Casting enum class to int (C method)
 	int type3 = (int)Type::STUDENT;
 	//Casting enum class to int (C++ method)
+	//Recommended method to cast
 	int type4 = static_cast<int>(Type::STUDENT);
 
 	//Virtual keyword and no body (pure virtual) means the child classes must implement it and the method in Human.h is abstract
@@ -83,6 +70,10 @@ public:
 	//Contained inside Human.cpp
 	void setAge(age_t age);
 	//Using protected so Student.h can access the member variables
+
+	virtual void Read();
+	virtual void Write();
+
 protected:
 	//Using m_ prefix for member variables
 	//Setting m_age to 0 by default (prevents build errors, can use NULL but 0 is preferred)

@@ -1,6 +1,6 @@
 
-#include "Human.h"
 #pragma once
+#include "Human.h"
 #include <iostream>
 
 using classroom_t = unsigned short;
@@ -35,6 +35,8 @@ public:
 	void work() override{
 		cout << "Teacher Working" << endl;
 	}
+	void Read() override;
+	void Write() override;
 
 private:
 	string m_className;

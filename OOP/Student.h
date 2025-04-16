@@ -1,6 +1,6 @@
 
-#include "Human.h"
 #pragma once
+#include "Human.h"
 #include <iostream>
 
 using namespace std;
@@ -31,6 +31,9 @@ public:
 	void work() override{
 		cout << "Student Working" << endl;
 	}
+
+	void Read() override;
+	void Write() override;
 
 private:
 	float m_gpa = 0.0f;
