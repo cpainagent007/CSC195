@@ -1,5 +1,6 @@
 
 #include "Teacher.h"
+#include "Console.h"
 #include <iostream>
 
 using namespace std;
@@ -9,7 +10,7 @@ void Teacher::Read() {
 	cout << "Class name: ";
 	cin >> m_className;
 	cout << "Classroom: ";
-	cin >> m_classroom;
+	m_classroom = getData<unsigned short>();
 }
 void Teacher::Write() {
 	Human::Write();

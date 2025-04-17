@@ -1,5 +1,6 @@
 
 #include "Human.h"
+#include "Console.h"
 
 //Static member variables must be defined outside the class
 int Human::m_count = 0;
@@ -17,7 +18,7 @@ void Human::Read(){
 	cout << "Enter name: ";
 	cin >> m_name;
 	cout << "Enter age: ";
-	cin >> m_age;
+	m_age = getData<age_t>();
 }
 
 void Human::Write() {

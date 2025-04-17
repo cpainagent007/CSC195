@@ -51,8 +51,16 @@ void School::displayAll() {
 	}
 }
 void School::displayByType(Human::Type type) {
-	
+	for (Human* human : m_humans) {
+		if (human->getType() == type) {
+			human->Write();
+		}
+	}
 }
 void School::displayByName(string name) {
-	
+	for (Human* human : m_humans) {
+		if (human->getName() == name) {
+			human->Write();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 
 #include "Student.h"
+#include "Console.h"
 #include <iostream>
 
 using namespace std;
@@ -7,7 +8,7 @@ using namespace std;
 void Student::Read() {
 	Human::Read();
 	cout << "GPA: ";
-	cin >> m_gpa;
+	m_gpa = getData<float>();
 }
 
 void Student::Write() {
