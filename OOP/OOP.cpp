@@ -78,7 +78,7 @@ void old() {
 			cout << "Class Name: " << dynamic_cast<Teacher*>(school[i])->getClassName() << endl;
 			cout << "Classroom: " << dynamic_cast<Teacher*>(school[i])->getClassroom() << endl;
 		}
-		//Another way to check the type of the object
+		//Another way to check the type of the object is to use dynamic_cast (recommended)
 		if (dynamic_cast<Student*>(school[i])) {}
 	}
 
