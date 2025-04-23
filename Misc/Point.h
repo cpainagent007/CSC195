@@ -6,11 +6,11 @@ using namespace std;
 namespace math2 {
 
 	// using keyword to create a shorthand for the type
-	using ipoint = Point<int>;
-	using fpoint = Point<float>;
+	
 
 	template<typename T>
 	class Point {
+
 	public:
 		Point() = default;
 		Point(T x, T y) : m_x(x), m_y(y) {};
@@ -33,7 +33,7 @@ namespace math2 {
 
 		bool operator !=(const Point<T>& otherPoint) const {
 			// *this is a deference to the current object
-			return !(*this == other);
+			return !(*this == otherPoint);
 		}
 
 		// Output operator overload that allows the sets to properly print
@@ -41,6 +41,15 @@ namespace math2 {
 		friend ostream& operator <<(ostream& ostream, const Point<T>& point) {
 			ostream << "(" << point.m_x << ", " << point.m_y << ")";
 			return ostream;
+		}
+
+		friend istream& operator >>(istream& istream, Point<T>& point) {
+
+			cout << "Enter x: ";
+			istream >> point.m_x;
+			cout << "Enter y: ";
+			istream >> point.m_y;
+			return istream;
 		}
 
 		// Placing const keyword to relate that the function will not modify the class (good practice)

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{80cd53fa-c4f5-419b-a576-e752251814ee}</ProjectGuid>
-    <RootNamespace>Misc</RootNamespace>
+    <ProjectGuid>{76e22d05-cdb3-4453-8971-d03e22baa5cf}</ProjectGuid>
+    <RootNamespace>Fractions</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -130,10 +130,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Point.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="test.txt" />
+    <ClInclude Include="Fractions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
