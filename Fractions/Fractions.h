@@ -7,7 +7,7 @@ namespace mathLib {
 	template<typename T>
 	class Fraction {
 	public:
-		Fraction();
+		Fraction() {};
 
 		Fraction(T numerator, T denominator) : m_numerator(numerator), m_denominator(denominator) {
 			if (denominator == 0) {
@@ -90,14 +90,15 @@ namespace mathLib {
 			return a;
 		}
 
-		T simplify() {
-			T gcd = findGCD(m_numerator, m_denominator);
-			m_numerator /= gcd;
-			m_denominator /= gcd;
-			if (m_denominator < 0) {
-				m_numerator = -m_numerator;
-				m_denominator = -m_denominator;
+		Fraction<T> simplify() const {
+			T gcd = findGCD(abs(m_numerator), abs(m_denominator));
+			T simplifiedNumerator = m_numerator / gcd;
+			T simplifiedDenominator = m_denominator / gcd;
+			if (simplifiedDenominator < 0) {
+				simplifiedNumerator = -simplifiedNumerator;
+				simplifiedDenominator = -simplifiedDenominator;
 			}
+			return Fraction(simplifiedNumerator, simplifiedDenominator);
 		}
 
 		float toFloat() const {
