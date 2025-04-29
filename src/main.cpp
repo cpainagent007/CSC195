@@ -38,13 +38,36 @@ int main()
     Texture black = LoadTexture("BrushBlack.png");
     Texture stamp = LoadTexture("BrushStamp.png");
 
-    std::vector<Texture> gifFrames;
+    std::vector<Texture> dance1;
     for (int i = 1; i <= 112; ++i) {
         char filename[64];
-        snprintf(filename, sizeof(filename), "ezgif-frame-%03d.png", i);
+        snprintf(filename, sizeof(filename), "dance1/ezgif-frame-%03d.png", i);
         Texture tex = LoadTexture(filename);
-        gifFrames.push_back(tex);
+        dance1.push_back(tex);
     }
+
+    std::vector<Texture> dance2;
+    for (int i = 1; i <= 107; ++i) {
+        char filename[64];
+        snprintf(filename, sizeof(filename), "dance2/ezgif-frame-%03d.png", i);
+        Texture tex = LoadTexture(filename);
+        dance2.push_back(tex);
+    }
+
+    std::vector<Texture> dance3;
+    for (int i = 1; i <= 180; ++i) {
+        char filename[64];
+        snprintf(filename, sizeof(filename), "dance3/ezgif-frame-%03d.png", i);
+        Texture tex = LoadTexture(filename);
+        dance3.push_back(tex);
+    }
+
+    std::vector<std::vector<Texture2D>*> allDances = {
+    &dance1,
+    &dance2,
+    &dance3
+    };
+
     
     Texture* currentImage = nullptr;
     Shape* currentShape = new Circle(Vector2{ 400, 500 }, 50, BLACK);
@@ -163,8 +186,8 @@ int main()
                 ImageShape* imgShape = dynamic_cast<ImageShape*>(shape);
                 if (imgShape != nullptr) {
                     if (CheckCollisionPointRec(mousePos, imgShape->getBounds())) {
-                        imgShape->becomeAnimated(gifFrames);
-                        break;
+                        int index = GetRandomValue(0, allDances.size() - 1);
+                        imgShape->becomeAnimated(*allDances[index]);
                     }
                 }
             }
@@ -302,10 +325,23 @@ int main()
 
         EndDrawing();
     }
-    for (Texture t : gifFrames) {
+    for (Texture t : dance1) {
+        UnloadTexture(t);
+    }
+    for (Texture t : dance2) {
+        UnloadTexture(t);
+    }
+    for (Texture t : dance3) {
         UnloadTexture(t);
     }
     UnloadTexture(kohler);
+    UnloadTexture(red);
+    UnloadTexture(orange);
+    UnloadTexture(yellow);
+    UnloadTexture(green);
+    UnloadTexture(blue);
+    UnloadTexture(purple);
+    UnloadTexture(black);
     CloseWindow();
     return 0;
 }
