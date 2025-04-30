@@ -4,19 +4,33 @@
 #include "raylib.h"
 #include <vector>
 
+
+
 class ImageShape : public Shape {
 public:
-    bool canAnimate = false;
+    enum ImageType {
+        KOHLER,
+        MAPLE,
+        WABBIT,
+        CHILL,
+        CAR,
+        MALTIGI,
+        X
+    };
 public:
-    ImageShape(Vector2 position, Texture2D* texture, bool canAnimate = false);
+    ImageShape(Vector2 position, Texture2D* texture, ImageType type, bool canAnimate = false);
     void becomeAnimated(const std::vector<Texture2D>& frames);
     bool isAnimatable() const { return canAnimate; }
     bool ColorCheck(Color check) override;
     void becomeAnimated(std::vector<Texture>& frames);
     void update(float deltaTime) override;
     void draw() override;
+    ImageType getImageType() const;
     Type getType() override;
     Rectangle getBounds() const;
+
+    bool canAnimate = false;
+    ImageType m_type;
 private:
     Texture* staticTexture;
     std::vector<Texture>* animationFrames = nullptr;

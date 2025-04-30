@@ -6,8 +6,8 @@ bool ImageShape::ColorCheck(Color check) {
     return false;
 }
 
-ImageShape::ImageShape(Vector2 position, Texture2D* texture, bool canAnimate)
-    : Shape(position), staticTexture(texture), canAnimate(canAnimate), isAnimated(false), animationFrames(nullptr), currentFrame(0), timer(0.0f) {
+ImageShape::ImageShape(Vector2 position, Texture2D* texture, ImageType type, bool canAnimate)
+    : Shape(position), staticTexture(texture), canAnimate(canAnimate), isAnimated(false), animationFrames(nullptr), currentFrame(0), timer(0.0f), m_type(type) {
 }
 
 
@@ -50,4 +50,8 @@ Rectangle ImageShape::getBounds() const {
 
 ImageShape::Type ImageShape::getType() {
     return Type::Image;
+}
+
+ImageShape::ImageType ImageShape::getImageType() const {
+    return m_type;
 }

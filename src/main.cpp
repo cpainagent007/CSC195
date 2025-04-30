@@ -24,6 +24,10 @@ int main()
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(screen_width, screen_height, "Colton Painter");
 
+    //-----------------------------------------------------------
+    // LOADING TEXTURES
+    //-----------------------------------------------------------
+
     SearchAndSetResourceDir("resources");
 
     Texture kohler = LoadTexture("Kohler.png");
@@ -31,6 +35,7 @@ int main()
     Texture wabbit = LoadTexture("wabbit_alpha.png");
     Texture chill = LoadTexture("Chill.png");
     Texture car = LoadTexture("FlightCar.png");
+    Texture maltigi = LoadTexture("Maltigi.png");
 
     Texture no = LoadTexture("NoBlock.png");
 
@@ -44,37 +49,68 @@ int main()
     Texture black = LoadTexture("BrushBlack.png");
     Texture stamp = LoadTexture("BrushStamp.png");
 
-    std::vector<Texture> dance1;
+    //-----------------------------------------------------------
+    // LOADING ANIMATIONS/CREATING VECTORS
+    //-----------------------------------------------------------
+
+    std::vector<Texture> kohlerSquat;
     for (int i = 1; i <= 112; ++i) {
         char filename[64];
-        snprintf(filename, sizeof(filename), "dance1/ezgif-frame-%03d.png", i);
+        snprintf(filename, sizeof(filename), "kohlerSquat/ezgif-frame-%03d.png", i);
         Texture tex = LoadTexture(filename);
-        dance1.push_back(tex);
+        kohlerSquat.push_back(tex);
     }
 
-    std::vector<Texture> dance2;
+    std::vector<Texture> kohlerBilly;
     for (int i = 1; i <= 107; ++i) {
         char filename[64];
-        snprintf(filename, sizeof(filename), "dance2/ezgif-frame-%03d.png", i);
+        snprintf(filename, sizeof(filename), "kohlerBilly/ezgif-frame-%03d.png", i);
         Texture tex = LoadTexture(filename);
-        dance2.push_back(tex);
+        kohlerBilly.push_back(tex);
     }
 
-    std::vector<Texture> dance3;
+    std::vector<Texture> kohlerGriddy;
     for (int i = 1; i <= 180; ++i) {
         char filename[64];
-        snprintf(filename, sizeof(filename), "dance3/ezgif-frame-%03d.png", i);
+        snprintf(filename, sizeof(filename), "kohlerGriddy/ezgif-frame-%03d.png", i);
         Texture tex = LoadTexture(filename);
-        dance3.push_back(tex);
+        kohlerGriddy.push_back(tex);
     }
 
-    std::vector<std::vector<Texture2D>*> allDances = {
-    &dance1,
-    &dance2,
-    &dance3
+    std::vector<std::vector<Texture2D>*> kohlerDances = {
+        &kohlerSquat,
+        &kohlerBilly,
+        &kohlerGriddy
     };
 
-    
+    std::vector<Texture> mapleHootenanny;
+    for (int i = 1; i <= 110; ++i) {
+        char filename[64];
+        snprintf(filename, sizeof(filename), "mapleHootenanny/ezgif-frame-%03d.png", i);
+        Texture tex = LoadTexture(filename);
+        mapleHootenanny.push_back(tex);
+    }
+
+    std::vector<std::vector<Texture2D>*> mapleDances = {
+        &mapleHootenanny
+    };
+
+    std::vector<Texture> maltigiWiggle;
+    for (int i = 1; i <= 32; ++i) {
+        char filename[64];
+        snprintf(filename, sizeof(filename), "maltigiWiggle/ezgif-frame-%03d.png", i);
+        Texture tex = LoadTexture(filename);
+        maltigiWiggle.push_back(tex);
+    }
+
+    std::vector<std::vector<Texture2D>*> maltigiDances = {
+        &maltigiWiggle
+    };
+   
+    //-----------------------------------------------------------
+    // CREATING BOXES
+    //-----------------------------------------------------------
+
     Texture* currentImage = nullptr;
     Shape* currentShape = new Circle(Vector2{ 400, 500 }, 50, BLACK);
 
@@ -100,15 +136,37 @@ int main()
     Rectangle btnWabbit = { 2125, 150, 100, 40 };
     Rectangle btnChill = { 2125, 200, 100, 40 };
     Rectangle btnCar = { 2125, 250, 100, 40 };
+    Rectangle btnMalt = { 2125, 300, 100, 40 };
+
+    Rectangle btnBgRed = { 2125, 600, 100, 40 };
+    Rectangle btnBgOrange = { 2125, 650, 100, 40 };
+    Rectangle btnBgYellow = { 2125, 700, 100, 40 };
+    Rectangle btnBgGreen = { 2125, 750, 100, 40 };
+    Rectangle btnBgBlue = { 2125, 800, 100, 40 };
+    Rectangle btnBgPurple = { 2125, 850, 100, 40 };
+    Rectangle btnBgWhite = { 2125, 900, 100, 40 };
+
+    //-----------------------------------------------------------
+    // CREATING MISC.
+    //-----------------------------------------------------------
         
     std::vector<Shape*> shapes;
     bool isDrawingImage = false;
     bool drawMode = false;
     Vector2 lastMousePos = { -1, -1 };
+    Color chosenColor = WHITE;
+
+    //-----------------------------------------------------------
+    // LOOP
+    //-----------------------------------------------------------
 
     while (!WindowShouldClose()) {
 
         Vector2 mousePos = GetMousePosition();
+
+        //-----------------------------------------------------------
+        // SHAPE BUTTONS
+        //-----------------------------------------------------------
 
         if (CheckCollisionPointRec(GetMousePosition(), btnCircle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             delete currentShape;
@@ -140,6 +198,11 @@ int main()
             }
             shapes.clear();
         }
+
+        //-----------------------------------------------------------
+        // COLOR BUTTONS
+        //-----------------------------------------------------------
+
         if (!isDrawingImage) {
             if (CheckCollisionPointRec(GetMousePosition(), btnRed) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 currentShape->setColor(RED);
@@ -163,6 +226,11 @@ int main()
                 currentShape->setColor(BLACK);
             }
         }
+
+        //-----------------------------------------------------------
+        // STAMP BUTTONS
+        //-----------------------------------------------------------
+
         if (CheckCollisionPointRec(GetMousePosition(), btnKohler) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             currentImage = &kohler;
             isDrawingImage = true;
@@ -188,6 +256,27 @@ int main()
             isDrawingImage = true;
             drawMode = false;
         }
+        if (CheckCollisionPointRec(GetMousePosition(), btnMalt) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &maltigi;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+
+        //-----------------------------------------------------------
+        // BACKGROUND COLOR BUTTONS
+        //-----------------------------------------------------------
+
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgRed) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = RED; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgOrange) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = ORANGE; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgYellow) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = YELLOW; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgGreen) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = GREEN; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgBlue) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = BLUE; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgPurple) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = PURPLE; }
+        if (CheckCollisionPointRec(GetMousePosition(), btnBgWhite) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) { chosenColor = WHITE; }
+
+        //-----------------------------------------------------------
+        // KEYBOARD INPUT
+        //-----------------------------------------------------------
         
         if (IsKeyPressed(KEY_ONE)) {
             delete currentShape;
@@ -208,24 +297,12 @@ int main()
             delete currentShape;
             currentShape = new Circle(Vector2{ 0, 0 }, 2, BLACK);
             isDrawingImage = false;
-        }
+            drawMode = true;
+        }     
 
-        if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
-            Vector2 mousePos = GetMousePosition();
-            for (auto shape : shapes) {
-                ImageShape* imgShape = dynamic_cast<ImageShape*>(shape);
-                if (imgShape && imgShape->isAnimatable()) {
-                    if (CheckCollisionPointRec(mousePos, imgShape->getBounds())) {
-                        int index = GetRandomValue(0, allDances.size() - 1);
-                        imgShape->becomeAnimated(*allDances[index]);
-                        break;
-                    }
-                }
-            }
-        }
-
-
-        
+        //-----------------------------------------------------------
+        // DRAWING
+        //-----------------------------------------------------------
 
         if (drawMode && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
             if (lastMousePos.x >= 0 && lastMousePos.y >= 0) {
@@ -240,6 +317,11 @@ int main()
 
             lastMousePos = mousePos;
         }
+
+        //-----------------------------------------------------------
+        // CANVAS CHECK
+        //-----------------------------------------------------------
+
         else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
              if (!CheckCollisionPointRec(GetMousePosition(), btnCircle) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnSquare) &&
@@ -257,12 +339,42 @@ int main()
                  !CheckCollisionPointRec(GetMousePosition(), btnMaple) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnWabbit) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnChill) &&
-                 !CheckCollisionPointRec(GetMousePosition(), btnCar)) {
+                 !CheckCollisionPointRec(GetMousePosition(), btnCar) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnMalt) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgRed) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgOrange) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgYellow) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgGreen) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgBlue) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgPurple) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBgWhite)) {
+
+                 //-----------------------------------------------------------
+                 // SHAPES
+                 //-----------------------------------------------------------
+
                 Shape* newShape = nullptr;
                 
                 if (isDrawingImage && currentImage != nullptr) {
-                    bool isKohler = (currentImage == &kohler);
-                    shapes.push_back(new ImageShape(mousePos, currentImage, isKohler));
+                    if (currentImage == &kohler) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::KOHLER, true));
+                    }
+                    if (currentImage == &maple) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::MAPLE, true));
+                    }
+                    if (currentImage == &wabbit) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::WABBIT, false));
+                    }
+                    if (currentImage == &chill) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::CHILL, false));
+                    }
+                    if (currentImage == &car) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::CAR, false));
+                    }
+                    if (currentImage == &maltigi) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::MALTIGI, true));
+                    }
+                    
                 }
                 else{
                     if (dynamic_cast<Circle*>(currentShape)) {
@@ -280,6 +392,11 @@ int main()
                 }
             }
         }
+
+        //-----------------------------------------------------------
+        // MISC. CHECKS/DELETE
+        //-----------------------------------------------------------
+
         if (!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
             lastMousePos = { -1, -1 };
         }
@@ -290,8 +407,54 @@ int main()
             }
         }
 
+        //-----------------------------------------------------------
+        // ANIMATE
+        //-----------------------------------------------------------
+
+        if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+            Vector2 mousePos = GetMousePosition();
+            for (auto shape : shapes) {
+                ImageShape* imgShape = dynamic_cast<ImageShape*>(shape);
+                if (imgShape && imgShape->isAnimatable() && CheckCollisionPointRec(mousePos, imgShape->getBounds())) {
+
+                    switch (imgShape->getImageType()) {
+                    case ImageShape::ImageType::KOHLER: {
+                        int index = GetRandomValue(0, kohlerDances.size() - 1);
+                        imgShape->becomeAnimated(*kohlerDances[index]);
+                        break;
+                    }
+                    case ImageShape::ImageType::MAPLE: {
+                        int index = GetRandomValue(0, mapleDances.size() - 1);
+                        imgShape->becomeAnimated(*mapleDances[index]);
+                        break;
+                    }
+                    case ImageShape::ImageType::WABBIT: {
+                        break;
+                    }
+                    case ImageShape::ImageType::CHILL: {
+                        break;
+                    }
+                    case ImageShape::ImageType::CAR: {
+                        break;
+                    }
+                    case ImageShape::ImageType::MALTIGI: {
+                        int index = GetRandomValue(0, maltigiDances.size() - 1);
+                        imgShape->becomeAnimated(*maltigiDances[index]);
+                        break;
+                    }
+                    }
+
+                    break;
+                }
+            }
+        }
+
         BeginDrawing();
-        ClearBackground(WHITE);
+        ClearBackground(chosenColor);
+
+        //-----------------------------------------------------------
+        // PRINT SHAPES
+        //-----------------------------------------------------------
 
         float deltaTime = GetFrameTime();
         for (auto s : shapes) {
@@ -307,19 +470,38 @@ int main()
             currentShape->draw();
         }
 
+        //-----------------------------------------------------------
+        // BOXES
+        //-----------------------------------------------------------
+
         DrawRectangleRec(tallBox, BLACK);
         DrawRectangleRec(tallBox2, BLACK);
+
+        //-----------------------------------------------------------
+        // SHAPE BUTTONS
+        //-----------------------------------------------------------
 
         DrawRectangleRec(btnCircle, DARKGRAY);
         DrawRectangleRec(btnSquare, DARKGRAY);
         DrawRectangleRec(btnTriangle, DARKGRAY);
         DrawRectangleRec(btnDraw, DARKGRAY);
         DrawRectangleRec(btnClear, DARKGRAY);
-        DrawText("Circle", 55, 55, 20, WHITE);
-        DrawText("Square", 55, 105, 20, WHITE);
-        DrawText("Triangle", 55, 155, 20, WHITE);
-        DrawText("Draw", 55, 205, 20, WHITE);
+
+
+        //-----------------------------------------------------------
+        // SHAPE TEXT
+        //-----------------------------------------------------------
+
+        DrawText("Circle (1)", 55, 55, 20, WHITE);
+        DrawText("Square (2)", 55, 105, 20, WHITE);
+        DrawText("Triangle (3)", 55, 155, 20, WHITE);
+        DrawText("Draw (4)", 55, 205, 20, WHITE);
         DrawText("Clear", 55, 255, 20, WHITE);
+
+        //-----------------------------------------------------------
+        // COLOR BUTTONS
+        //-----------------------------------------------------------
+
         if (!isDrawingImage) {
             DrawRectangleRec(btnRed, RED);
             DrawRectangleRec(btnOrange, ORANGE);
@@ -328,6 +510,11 @@ int main()
             DrawRectangleRec(btnBlue, BLUE);
             DrawRectangleRec(btnPurple, PURPLE);
             DrawRectangleRec(btnBlack, BLACK);
+
+            //-----------------------------------------------------------
+            // COLOR TEXT
+            //-----------------------------------------------------------
+
             DrawText("Red", 55, 605, 20, BLACK);
             DrawText("Orange", 55, 655, 20, BLACK);
             DrawText("Yellow", 55, 705, 20, BLACK);
@@ -339,16 +526,59 @@ int main()
         else {
             DrawTexture(no, 50, 600, WHITE);
         }
+
+        //-----------------------------------------------------------
+        // STAMP BUTTONS
+        //-----------------------------------------------------------
+
         DrawRectangleRec(btnKohler, DARKGRAY);
         DrawRectangleRec(btnMaple, DARKGRAY);
         DrawRectangleRec(btnWabbit, DARKGRAY);
         DrawRectangleRec(btnChill, DARKGRAY);
         DrawRectangleRec(btnCar, DARKGRAY);
+        DrawRectangleRec(btnMalt, DARKGRAY);
+
+
+        //-----------------------------------------------------------
+        // STAMP TEXT
+        //-----------------------------------------------------------
+
         DrawText("Kohler", 2130, 55, 20, WHITE);
         DrawText("Maple", 2130, 105, 20, WHITE);
         DrawText("Wabbit", 2130, 155, 20, WHITE);
         DrawText("Chill", 2130, 205, 20, WHITE);
         DrawText("Car", 2130, 255, 20, WHITE);
+        DrawText("Luigi", 2130, 305, 20, WHITE);
+
+
+        //-----------------------------------------------------------
+        // BACKGROUND COLOR BUTTONS
+        //-----------------------------------------------------------
+
+        DrawRectangleRec(btnBgRed, RED);
+        DrawRectangleRec(btnBgOrange, ORANGE);
+        DrawRectangleRec(btnBgYellow, YELLOW);
+        DrawRectangleRec(btnBgGreen, GREEN);
+        DrawRectangleRec(btnBgBlue, BLUE);
+        DrawRectangleRec(btnBgPurple, PURPLE);
+        DrawRectangleRec(btnBgWhite, WHITE);
+
+
+        //-----------------------------------------------------------
+        // BACKGROUND COLOR TEXT
+        //-----------------------------------------------------------
+
+        DrawText("BG Red", 2130, 605, 20, BLACK);
+        DrawText("BG Orange", 2130, 655, 20, BLACK);
+        DrawText("BG Yellow", 2130, 705, 20, BLACK);
+        DrawText("BG Green", 2130, 755, 20, BLACK);
+        DrawText("BG Blue", 2130, 805, 20, BLACK);
+        DrawText("BG Purple", 2130, 855, 20, BLACK);
+        DrawText("BG White", 2130, 905, 20, BLACK);
+
+        //-----------------------------------------------------------
+        // CURSORS
+        //-----------------------------------------------------------
 
         if (isDrawingImage) {
             HideCursor();
@@ -389,21 +619,37 @@ int main()
 
         EndDrawing();
     }
-    for (Texture t : dance1) {
-        UnloadTexture(t);
+
+    //-----------------------------------------------------------
+    // UNLOADING ANIMATIONS
+    //-----------------------------------------------------------
+
+    for (std::vector<Texture2D>* vecPtr : kohlerDances) {
+        for (Texture2D& tex : *vecPtr) {
+            UnloadTexture(tex);
+        }
     }
-    for (Texture t : dance2) {
-        UnloadTexture(t);
+    for (std::vector<Texture2D>* vecPtr : mapleDances) {
+        for (Texture2D& tex : *vecPtr) {
+            UnloadTexture(tex);
+        }
     }
-    for (Texture t : dance3) {
-        UnloadTexture(t);
+    for (std::vector<Texture2D>* vecPtr : maltigiDances) {
+        for (Texture2D& tex : *vecPtr) {
+            UnloadTexture(tex);
+        }
     }
+
+    //-----------------------------------------------------------
+    // UNLOADING TEXTURES
+    //-----------------------------------------------------------
 
     UnloadTexture(kohler);
     UnloadTexture(maple);
     UnloadTexture(wabbit);
     UnloadTexture(chill);
     UnloadTexture(car);
+    UnloadTexture(maltigi);
 
     UnloadTexture(no);
 
