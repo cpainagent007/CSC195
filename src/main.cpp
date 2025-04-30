@@ -471,11 +471,16 @@ int main()
         }
 
         //-----------------------------------------------------------
-        // BOXES
+        // BOXES/LABELS
         //-----------------------------------------------------------
 
         DrawRectangleRec(tallBox, BLACK);
         DrawRectangleRec(tallBox2, BLACK);
+
+        DrawText("Shapes", 55, 25, 20, WHITE);
+        DrawText("Colors", 55, 575, 20, WHITE);
+        DrawText("Stamps", 2130, 25, 20, WHITE);
+        DrawText("Background", 2130, 575, 20, WHITE);
 
         //-----------------------------------------------------------
         // SHAPE BUTTONS
