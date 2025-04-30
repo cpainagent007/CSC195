@@ -36,6 +36,7 @@ int main()
     Texture chill = LoadTexture("Chill.png");
     Texture car = LoadTexture("FlightCar.png");
     Texture maltigi = LoadTexture("Maltigi.png");
+    Texture joker = LoadTexture("Jonkler.png");
 
     Texture no = LoadTexture("NoBlock.png");
 
@@ -106,6 +107,18 @@ int main()
     std::vector<std::vector<Texture2D>*> maltigiDances = {
         &maltigiWiggle
     };
+
+    std::vector<Texture> jonklerSP;
+    for (int i = 1; i <= 41; ++i) {
+        char filename[64];
+        snprintf(filename, sizeof(filename), "jonklerSP/ezgif-frame-%03d.png", i);
+        Texture tex = LoadTexture(filename);
+        jonklerSP.push_back(tex);
+    }
+
+    std::vector<std::vector<Texture2D>*> jonklerDances = {
+        &jonklerSP
+    };
    
     //-----------------------------------------------------------
     // CREATING BOXES
@@ -121,7 +134,7 @@ int main()
     Rectangle btnSquare = { 50, 100, 100, 40 };
     Rectangle btnTriangle = { 50, 150, 100, 40 };
     Rectangle btnDraw = { 50, 200, 100, 40 };
-    Rectangle btnClear = { 50, 250, 100, 40 };
+    Rectangle btnClear = { 50, 400, 100, 40 };
 
     Rectangle btnRed = { 50, 600, 100, 40 };
     Rectangle btnOrange = { 50, 650, 100, 40 };
@@ -137,6 +150,7 @@ int main()
     Rectangle btnChill = { 2125, 200, 100, 40 };
     Rectangle btnCar = { 2125, 250, 100, 40 };
     Rectangle btnMalt = { 2125, 300, 100, 40 };
+    Rectangle btnJoker = { 2125, 350, 100, 40 };
 
     Rectangle btnBgRed = { 2125, 600, 100, 40 };
     Rectangle btnBgOrange = { 2125, 650, 100, 40 };
@@ -196,6 +210,7 @@ int main()
             for (auto s : shapes) {
                 delete s;
             }
+            chosenColor = WHITE;
             shapes.clear();
         }
 
@@ -258,6 +273,11 @@ int main()
         }
         if (CheckCollisionPointRec(GetMousePosition(), btnMalt) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             currentImage = &maltigi;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), btnJoker) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &joker;
             isDrawingImage = true;
             drawMode = false;
         }
@@ -341,6 +361,7 @@ int main()
                  !CheckCollisionPointRec(GetMousePosition(), btnChill) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnCar) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnMalt) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnJoker) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnBgRed) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnBgOrange) &&
                  !CheckCollisionPointRec(GetMousePosition(), btnBgYellow) &&
@@ -374,7 +395,9 @@ int main()
                     if (currentImage == &maltigi) {
                         shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::MALTIGI, true));
                     }
-                    
+                    if (currentImage == &joker) {
+                        shapes.push_back(new ImageShape(mousePos, currentImage, ImageShape::ImageType::JOKER, true));
+                    }
                 }
                 else{
                     if (dynamic_cast<Circle*>(currentShape)) {
@@ -442,6 +465,11 @@ int main()
                         imgShape->becomeAnimated(*maltigiDances[index]);
                         break;
                     }
+                    case ImageShape::ImageType::JOKER: {
+                        int index = GetRandomValue(0, jonklerDances.size() - 1);
+                        imgShape->becomeAnimated(*jonklerDances[index]);
+                        break;
+                    }
                     }
 
                     break;
@@ -501,7 +529,7 @@ int main()
         DrawText("Square (2)", 55, 105, 20, WHITE);
         DrawText("Triangle (3)", 55, 155, 20, WHITE);
         DrawText("Draw (4)", 55, 205, 20, WHITE);
-        DrawText("Clear", 55, 255, 20, WHITE);
+        DrawText("Clear", 55, 405, 20, WHITE);
 
         //-----------------------------------------------------------
         // COLOR BUTTONS
@@ -542,6 +570,7 @@ int main()
         DrawRectangleRec(btnChill, DARKGRAY);
         DrawRectangleRec(btnCar, DARKGRAY);
         DrawRectangleRec(btnMalt, DARKGRAY);
+        DrawRectangleRec(btnJoker, DARKGRAY);
 
 
         //-----------------------------------------------------------
@@ -554,6 +583,7 @@ int main()
         DrawText("Chill", 2130, 205, 20, WHITE);
         DrawText("Car", 2130, 255, 20, WHITE);
         DrawText("Luigi", 2130, 305, 20, WHITE);
+        DrawText("Joker", 2130, 355, 20, WHITE);
 
 
         //-----------------------------------------------------------
@@ -644,6 +674,11 @@ int main()
             UnloadTexture(tex);
         }
     }
+    for (std::vector<Texture2D>* vecPtr : jonklerDances) {
+        for (Texture2D& tex : *vecPtr) {
+            UnloadTexture(tex);
+        }
+    }
 
     //-----------------------------------------------------------
     // UNLOADING TEXTURES
@@ -655,6 +690,7 @@ int main()
     UnloadTexture(chill);
     UnloadTexture(car);
     UnloadTexture(maltigi);
+    UnloadTexture(joker);
 
     UnloadTexture(no);
 

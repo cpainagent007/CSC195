@@ -15,6 +15,7 @@ public:
         CHILL,
         CAR,
         MALTIGI,
+        JOKER,
         X
     };
 public:
