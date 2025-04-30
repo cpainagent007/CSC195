@@ -6,9 +6,10 @@ bool ImageShape::ColorCheck(Color check) {
     return false;
 }
 
-ImageShape::ImageShape(Vector2 position, Texture* image)
-    : Shape(position), staticTexture(image), isAnimated(false), animationFrames(nullptr), currentFrame(0), timer(0.0f) {
+ImageShape::ImageShape(Vector2 position, Texture2D* texture, bool canAnimate)
+    : Shape(position), staticTexture(texture), canAnimate(canAnimate), isAnimated(false), animationFrames(nullptr), currentFrame(0), timer(0.0f) {
 }
+
 
 void ImageShape::becomeAnimated(std::vector<Texture>& frames) {
     animationFrames = &frames;

@@ -6,8 +6,12 @@
 
 class ImageShape : public Shape {
 public:
+    bool canAnimate = false;
+public:
+    ImageShape(Vector2 position, Texture2D* texture, bool canAnimate = false);
+    void becomeAnimated(const std::vector<Texture2D>& frames);
+    bool isAnimatable() const { return canAnimate; }
     bool ColorCheck(Color check) override;
-    ImageShape(Vector2 position, Texture* image);
     void becomeAnimated(std::vector<Texture>& frames);
     void update(float deltaTime) override;
     void draw() override;

@@ -26,7 +26,13 @@ int main()
 
     SearchAndSetResourceDir("resources");
 
-    Texture kohler = LoadTexture("kohler.png");
+    Texture kohler = LoadTexture("Kohler.png");
+    Texture maple = LoadTexture("Maple.png");
+    Texture wabbit = LoadTexture("wabbit_alpha.png");
+    Texture chill = LoadTexture("Chill.png");
+    Texture car = LoadTexture("FlightCar.png");
+
+    Texture no = LoadTexture("NoBlock.png");
 
     Texture default = LoadTexture("BrushDefault.png");
     Texture red = LoadTexture("BrushRed.png");
@@ -72,12 +78,14 @@ int main()
     Texture* currentImage = nullptr;
     Shape* currentShape = new Circle(Vector2{ 400, 500 }, 50, BLACK);
 
+    Rectangle tallBox = { 25, 25, 150, 925 };
+    Rectangle tallBox2 = { 2100, 25, 150, 925 };
+
     Rectangle btnCircle = { 50, 50, 100, 40 };
     Rectangle btnSquare = { 50, 100, 100, 40 };
     Rectangle btnTriangle = { 50, 150, 100, 40 };
-    Rectangle btnKohler = { 50, 200, 100, 40 };
-    Rectangle btnDraw = { 50, 250, 100, 40 };
-    Rectangle btnClear = { 50, 300, 100, 40 };
+    Rectangle btnDraw = { 50, 200, 100, 40 };
+    Rectangle btnClear = { 50, 250, 100, 40 };
 
     Rectangle btnRed = { 50, 600, 100, 40 };
     Rectangle btnOrange = { 50, 650, 100, 40 };
@@ -87,6 +95,12 @@ int main()
     Rectangle btnPurple = { 50, 850, 100, 40 };
     Rectangle btnBlack = { 50, 900, 100, 40 };
 
+    Rectangle btnKohler = { 2125, 50, 100, 40 };
+    Rectangle btnMaple = { 2125, 100, 100, 40 };
+    Rectangle btnWabbit = { 2125, 150, 100, 40 };
+    Rectangle btnChill = { 2125, 200, 100, 40 };
+    Rectangle btnCar = { 2125, 250, 100, 40 };
+        
     std::vector<Shape*> shapes;
     bool isDrawingImage = false;
     bool drawMode = false;
@@ -112,11 +126,6 @@ int main()
             delete currentShape;
             currentShape = new Triangle(Vector2{ 0, 0 }, 50, BLACK);
             isDrawingImage = false;
-            drawMode = false;
-        }
-        if (CheckCollisionPointRec(GetMousePosition(), btnKohler) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            currentImage = &kohler;
-            isDrawingImage = true;
             drawMode = false;
         }
         if (CheckCollisionPointRec(GetMousePosition(), btnDraw) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
@@ -154,6 +163,31 @@ int main()
                 currentShape->setColor(BLACK);
             }
         }
+        if (CheckCollisionPointRec(GetMousePosition(), btnKohler) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &kohler;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), btnMaple) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &maple;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), btnWabbit) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &wabbit;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), btnChill) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &chill;
+            isDrawingImage = true;
+            drawMode = false;
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), btnCar) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            currentImage = &car;
+            isDrawingImage = true;
+            drawMode = false;
+        }
         
         if (IsKeyPressed(KEY_ONE)) {
             delete currentShape;
@@ -171,10 +205,6 @@ int main()
             isDrawingImage = false;
         }
         if (IsKeyPressed(KEY_FOUR)) {
-            currentImage = &kohler;
-            isDrawingImage = true;
-        }
-        if (IsKeyPressed(KEY_FIVE)) {
             delete currentShape;
             currentShape = new Circle(Vector2{ 0, 0 }, 2, BLACK);
             isDrawingImage = false;
@@ -184,14 +214,16 @@ int main()
             Vector2 mousePos = GetMousePosition();
             for (auto shape : shapes) {
                 ImageShape* imgShape = dynamic_cast<ImageShape*>(shape);
-                if (imgShape != nullptr) {
+                if (imgShape && imgShape->isAnimatable()) {
                     if (CheckCollisionPointRec(mousePos, imgShape->getBounds())) {
                         int index = GetRandomValue(0, allDances.size() - 1);
                         imgShape->becomeAnimated(*allDances[index]);
+                        break;
                     }
                 }
             }
         }
+
 
         
 
@@ -210,22 +242,27 @@ int main()
         }
         else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
              if (!CheckCollisionPointRec(GetMousePosition(), btnCircle) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnSquare) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnTriangle) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnKohler) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnDraw) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnClear) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnRed) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnOrange) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnYellow) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnGreen) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnBlue) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnPurple) &&
-                !CheckCollisionPointRec(GetMousePosition(), btnBlack)) {
+                 !CheckCollisionPointRec(GetMousePosition(), btnSquare) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnTriangle) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnDraw) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnClear) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnRed) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnOrange) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnYellow) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnGreen) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBlue) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnPurple) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnBlack) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnKohler) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnMaple) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnWabbit) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnChill) &&
+                 !CheckCollisionPointRec(GetMousePosition(), btnCar)) {
                 Shape* newShape = nullptr;
                 
                 if (isDrawingImage && currentImage != nullptr) {
-                    shapes.push_back(new ImageShape(mousePos, currentImage));
+                    bool isKohler = (currentImage == &kohler);
+                    shapes.push_back(new ImageShape(mousePos, currentImage, isKohler));
                 }
                 else{
                     if (dynamic_cast<Circle*>(currentShape)) {
@@ -247,31 +284,21 @@ int main()
             lastMousePos = { -1, -1 };
         }
 
+        if (IsKeyPressed(KEY_BACKSPACE)) {
+            if (!(shapes.empty())) {
+                shapes.pop_back();
+            }
+        }
+
         BeginDrawing();
         ClearBackground(WHITE);
 
-        DrawRectangleRec(btnCircle, BLACK);
-        DrawRectangleRec(btnSquare, BLACK);
-        DrawRectangleRec(btnTriangle, BLACK);
-        DrawRectangleRec(btnKohler, BLACK);
-        DrawRectangleRec(btnDraw, BLACK);
-        DrawRectangleRec(btnClear, BLACK);
-        DrawText("Circle", 55, 55, 20, WHITE);
-        DrawText("Square", 55, 105, 20, WHITE);
-        DrawText("Triangle", 55, 155, 20, WHITE);
-        DrawText("Kohler", 55, 205, 20, WHITE);
-        DrawText("Draw", 55, 255, 20, WHITE);
-        DrawText("Clear", 55, 305, 20, WHITE);
-        if (!isDrawingImage) {
-            DrawRectangleRec(btnRed, RED);
-            DrawRectangleRec(btnOrange, ORANGE);
-            DrawRectangleRec(btnYellow, YELLOW);
-            DrawRectangleRec(btnGreen, GREEN);
-            DrawRectangleRec(btnBlue, BLUE);
-            DrawRectangleRec(btnPurple, PURPLE);
-            DrawRectangleRec(btnBlack, BLACK);
+        float deltaTime = GetFrameTime();
+        for (auto s : shapes) {
+            s->update(deltaTime);
+            s->draw();
         }
-       
+
         if (isDrawingImage && currentImage != nullptr) {
             DrawTexture(*currentImage, mousePos.x - currentImage->width / 2, mousePos.y - currentImage->height / 2, WHITE);
         }
@@ -280,11 +307,48 @@ int main()
             currentShape->draw();
         }
 
-        float deltaTime = GetFrameTime();
-        for (auto s : shapes) {
-            s->update(deltaTime);
-            s->draw();
+        DrawRectangleRec(tallBox, BLACK);
+        DrawRectangleRec(tallBox2, BLACK);
+
+        DrawRectangleRec(btnCircle, DARKGRAY);
+        DrawRectangleRec(btnSquare, DARKGRAY);
+        DrawRectangleRec(btnTriangle, DARKGRAY);
+        DrawRectangleRec(btnDraw, DARKGRAY);
+        DrawRectangleRec(btnClear, DARKGRAY);
+        DrawText("Circle", 55, 55, 20, WHITE);
+        DrawText("Square", 55, 105, 20, WHITE);
+        DrawText("Triangle", 55, 155, 20, WHITE);
+        DrawText("Draw", 55, 205, 20, WHITE);
+        DrawText("Clear", 55, 255, 20, WHITE);
+        if (!isDrawingImage) {
+            DrawRectangleRec(btnRed, RED);
+            DrawRectangleRec(btnOrange, ORANGE);
+            DrawRectangleRec(btnYellow, YELLOW);
+            DrawRectangleRec(btnGreen, GREEN);
+            DrawRectangleRec(btnBlue, BLUE);
+            DrawRectangleRec(btnPurple, PURPLE);
+            DrawRectangleRec(btnBlack, BLACK);
+            DrawText("Red", 55, 605, 20, BLACK);
+            DrawText("Orange", 55, 655, 20, BLACK);
+            DrawText("Yellow", 55, 705, 20, BLACK);
+            DrawText("Green", 55, 755, 20, BLACK);
+            DrawText("Blue", 55, 805, 20, BLACK);
+            DrawText("Purple", 55, 855, 20, BLACK);
+            DrawText("Black", 55, 905, 20, WHITE);
         }
+        else {
+            DrawTexture(no, 50, 600, WHITE);
+        }
+        DrawRectangleRec(btnKohler, DARKGRAY);
+        DrawRectangleRec(btnMaple, DARKGRAY);
+        DrawRectangleRec(btnWabbit, DARKGRAY);
+        DrawRectangleRec(btnChill, DARKGRAY);
+        DrawRectangleRec(btnCar, DARKGRAY);
+        DrawText("Kohler", 2130, 55, 20, WHITE);
+        DrawText("Maple", 2130, 105, 20, WHITE);
+        DrawText("Wabbit", 2130, 155, 20, WHITE);
+        DrawText("Chill", 2130, 205, 20, WHITE);
+        DrawText("Car", 2130, 255, 20, WHITE);
 
         if (isDrawingImage) {
             HideCursor();
@@ -334,7 +398,15 @@ int main()
     for (Texture t : dance3) {
         UnloadTexture(t);
     }
+
     UnloadTexture(kohler);
+    UnloadTexture(maple);
+    UnloadTexture(wabbit);
+    UnloadTexture(chill);
+    UnloadTexture(car);
+
+    UnloadTexture(no);
+
     UnloadTexture(red);
     UnloadTexture(orange);
     UnloadTexture(yellow);
@@ -342,6 +414,7 @@ int main()
     UnloadTexture(blue);
     UnloadTexture(purple);
     UnloadTexture(black);
+
     CloseWindow();
     return 0;
 }
